@@ -46,7 +46,7 @@ def predict():
     # 格式化时间，例如：2024-10-14 12:00:00
     time_str = now.strftime("%Y-%m-%d %H:%M:%S")
     # 输出文本和当前时间
-    print(f'run ts optimization by RMLP at {time_str}')
+    print(f'Running RMLP at {time_str}')
     return jsonify({'energy': energy, 'grad': grad.tolist(), 'hessian': hessian.tolist()})
 
 if __name__ == "__main__":

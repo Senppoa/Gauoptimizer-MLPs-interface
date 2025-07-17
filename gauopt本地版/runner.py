@@ -4,6 +4,7 @@ import numpy as np
 import requests
 import requests_unixsocket  # 这是 Unix Socket 支持的 requests 库
 import io
+import urllib.parse
 from fileIO import parse_ifile, write_ofile
 from ase.units import eV, Angstrom, Hartree, Bohr
 
@@ -45,7 +46,9 @@ if __name__ == "__main__":
 
     # Unix Socket URL 使用 requests_unixsocket 特定格式
     socket_path = "/home/tangkun/tmp/flask_server.sock"
-    socket_url = "http+unix://%2Fhome%2Ftangkun%2Ftmp%2Fflask_server.sock/predict" # 注意 %2F
+    # 不保留任何字符为安全，所有斜杠都转成 %2F
+    encoded_path = urllib.parse.quote(socket_path, safe="")
+    socket_url = f"http+unix://{encoded_path}/predict"
 
     try:
         # 发送 POST 请求并捕获响应
